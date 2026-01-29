@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yellow House | Living Property Management</title>
+    <link rel="icon" href="lpm logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstapi.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: { brand: { yellow: '#fbbf24', dark: '#111827', gray: '#f3f4f6' } }
+                }
+            }
+        }
+    </script>
+    <style>[x-cloak] { display: none !important; } .glass { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }</style>
+</head>
+<body class="bg-gray-50 text-gray-800 antialiased" x-data="{ currentImageIndex: 0 }">
+    <nav class="fixed w-full z-50 transition-all duration-300 glass shadow-sm border-b border-gray-100">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3 group">
+                <img src="lpm logo.png" alt="LPM Logo" class="w-12 h-12 rounded-full shadow-lg transform group-hover:rotate-3 transition duration-300 object-contain bg-white p-2">
+                <div class="flex flex-col">
+                    <span class="font-extrabold text-lg tracking-tight leading-none text-brand-dark">LIVING</span>
+                    <span class="font-semibold text-xs tracking-widest text-gray-500">PROPERTY MANAGEMENT</span>
+                </div>
+            </a>
+            <div class="hidden md:flex items-center space-x-8 font-medium text-sm">
+                <a href="index.html#home" class="hover:text-brand-yellow transition">Home</a>
+                <a href="index.html#properties" class="hover:text-brand-yellow transition">Residences</a>
+                <a href="https://wa.me/27607296762" target="_blank" class="bg-brand-dark text-white px-6 py-2.5 rounded-full font-semibold hover:bg-brand-yellow hover:text-brand-dark transition-all transform hover:scale-105 shadow-lg flex items-center gap-2">
+                    <i class="fab fa-whatsapp"></i> Book Now
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="pt-24 pb-12">
+        <div class="container mx-auto px-6">
+            <a href="index.html#properties" class="text-brand-yellow hover:text-yellow-400 font-semibold mb-6 inline-flex items-center gap-2">
+                <i class="fas fa-arrow-left"></i> Back to Residences
+            </a>
+
+            <div class="mb-12">
+                <h1 class="text-4xl md:text-5xl font-extrabold text-brand-dark mb-4">Yellow House</h1>
+                <div class="flex flex-wrap gap-4 text-gray-600">
+                    <span class="flex items-center gap-2"><i class="fas fa-map-marker-alt text-brand-yellow"></i> DUT Campus</span>
+                    <span class="flex items-center gap-2"><i class="fas fa-user text-brand-yellow"></i> Manager: Mvelo Ruffus</span>
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8 mb-16">
+                <div class="lg:col-span-2">
+                    <div class="relative h-96 mb-6 rounded-2xl overflow-hidden shadow-xl">
+                        <img id="mainImage" src="Private accomodation/DUT/IMG-20260125-WA0000.jpg" class="w-full h-full object-cover" alt="Yellow House">
+                        <div class="absolute top-4 right-4 bg-brand-yellow text-brand-dark px-4 py-2 rounded-lg font-bold">
+                            <span x-text="currentImageIndex + 1"></span> / 1
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-6 gap-2">
+                        <button @click="currentImageIndex = 0" class="h-20 rounded-lg overflow-hidden border-2 border-transparent hover:border-brand-yellow transition">
+                            <img src="Private accomodation/DUT/IMG-20260125-WA0000.jpg" class="w-full h-full object-cover" alt="Gallery">
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-lg p-8 h-fit sticky top-24">
+                    <h3 class="text-2xl font-bold text-brand-dark mb-6">Quick Booking</h3>
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-600">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500">Campus</p>
+                                <p class="font-semibold text-gray-800">DUT Main Campus</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center text-green-600">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500">NSFAS Support</p>
+                                <p class="font-semibold text-gray-800">NSFAS Funded</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-yellow-50 flex items-center justify-center text-yellow-600">
+                                <i class="fas fa-home"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500">Comfort</p>
+                                <p class="font-semibold text-gray-800">Cozy Accommodation</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border-t border-gray-200 pt-8">
+                        <a href="https://wa.me/27607296762?text=Hi,%20I'm%20interested%20in%20Yellow%20House%20DUT" target="_blank" class="block w-full text-center bg-brand-dark text-white font-bold py-4 rounded-xl hover:bg-brand-yellow hover:text-brand-dark transition-all transform hover:scale-105 shadow-lg flex items-center justify-center gap-2 mb-3">
+                            <i class="fab fa-whatsapp text-lg"></i> Book via WhatsApp
+                        </a>
+                        <a href="mailto:livingpropertym@outlook.com?subject=Inquiry%20about%20Yellow%20House" class="block w-full text-center bg-white border-2 border-brand-dark text-brand-dark font-bold py-3 rounded-xl hover:bg-gray-50 transition-all">
+                            <i class="fas fa-envelope mr-2"></i> Email Inquiry
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8 mb-16">
+                <div class="lg:col-span-2">
+                    <h2 class="text-3xl font-bold text-brand-dark mb-6">About This Accommodation</h2>
+                    <p class="text-gray-600 text-lg leading-relaxed mb-6">
+                        Yellow House is dedicated to supporting NSFAS-funded students at DUT Campus. The property provides comfortable and cozy accommodation specifically designed for students who depend on NSFAS funding for their housing.
+                    </p>
+                    <p class="text-gray-600 text-lg leading-relaxed">
+                        With flexible payment options and supportive management, Yellow House makes it easier for NSFAS students to secure quality housing. Manager Mvelo Ruffus is committed to ensuring all residents feel welcome and supported.
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-lg p-8">
+                    <h3 class="text-xl font-bold text-brand-dark mb-6">Contact Information</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="text-sm text-gray-500 mb-1">Manager</p>
+                            <p class="font-semibold text-gray-800">Mvelo Ruffus</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-500 mb-1">WhatsApp</p>
+                            <a href="https://wa.me/27607296762" target="_blank" class="text-brand-yellow hover:text-yellow-400 font-semibold">076 072 9676 2</a>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-500 mb-1">Campus</p>
+                            <p class="font-semibold text-gray-800">DUT</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-500 mb-1">Special</p>
+                            <p class="font-semibold text-gray-800">NSFAS Friendly</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-black text-white pt-20 pb-10 border-t border-gray-800">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-12 mb-16">
+                <div>
+                    <div class="flex items-center gap-2 mb-6">
+                        <img src="lpm logo.png" alt="LPM Logo" class="w-12 h-12 rounded-full object-contain bg-white p-1.5">
+                        <span class="font-bold text-xl">LIVING PROPERTY</span>
+                    </div>
+                    <p class="text-gray-500 text-sm leading-relaxed">Premium student housing solutions since 2023.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-6 text-brand-yellow">Quick Links</h4>
+                    <ul class="space-y-3 text-gray-400 text-sm">
+                        <li><a href="index.html#home" class="hover:text-white transition">Home</a></li>
+                        <li><a href="index.html#properties" class="hover:text-white transition">Residences</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-6 text-brand-yellow">Contact</h4>
+                    <ul class="space-y-3 text-gray-400 text-sm">
+                        <li><i class="fas fa-envelope text-brand-yellow mr-2"></i>livingpropertym@outlook.com</li>
+                        <li><i class="fas fa-phone text-brand-yellow mr-2"></i>067 577 0030</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-900 pt-8 text-center text-gray-600 text-sm">
+                &copy; 2026 Living Property Management. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const images = ['Private accomodation/DUT/IMG-20260125-WA0000.jpg'];
+        const mainImage = document.getElementById('mainImage');
+        setInterval(() => { const idx = document.body.__x?.find(el => el.__x)?.currentImageIndex || 0; mainImage.src = images[idx]; }, 100);
+    </script>
+</body>
+</html>

@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Living Property Management | Premium Student Housing</title>
+    <meta name="description" content="Safe, reliable, and high-quality student housing for UKZN, DUT, and EThekwini College. NSFAS & Self-funded options available.">
+    <link rel="icon" href="lpm logo.png">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            yellow: '#fbbf24', // Warm yellow/orange from logo
+                            dark: '#111827',   // Deep gray/*black
+                            gray: '#f3f4f6',   // Light background
+                        }
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 10 s ease-out forwards',
+                        'slow-zoom': 'slowZoom 5s linear infinite alternate', // NEW: Added Zoom Animation
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0.5', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        slowZoom: { // NEW: Keyframes for Zoom
+                            '0%': { transform: 'scale(1)' },
+                            '100%': { transform: 'scale(1.15)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        [x-cloak] { display: none !important; }
+        /* Glassmorphism effect for nav */
+        .glass {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 antialiased" x-data="{ mobileMenuOpen: false, activeTab: 'All' }">
+
+    <nav class="fixed w-full z-50 transition-all duration-300 glass shadow-sm border-b border-gray-100">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="flex items-center gap-3 group">
+                <img src="lpm logo.png" alt="Living Property Management Logo" class="w-16 h-16 rounded-full shadow-lg transform group-hover:rotate-3 transition duration-300 object-contain bg-white p-2">
+                <div class="flex flex-col">
+                    <span class="font-extrabold text-lg tracking-tight leading-none text-brand-dark">LIVING</span>
+                    <span class="font-semibold text-xs tracking-widest text-gray-500">PROPERTY MANAGEMENT</span>
+                </div>
+            </a>
+
+            <div class="hidden md:flex items-center space-x-8 font-medium text-sm">
+                <a href="#home" class="hover:text-brand-yellow transition relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-0.5 after:bg-brand-yellow after:transition-all hover:after:w-full">Home</a>
+                <a href="#about" class="hover:text-brand-yellow transition relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-0.5 after:bg-brand-yellow after:transition-all hover:after:w-full">About Us</a>
+                <a href="#properties" class="hover:text-brand-yellow transition relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-0.5 after:bg-brand-yellow after:transition-all hover:after:w-full">Residences</a>
+                <a href="#contact" class="hover:text-brand-yellow transition relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-0.5 after:bg-brand-yellow after:transition-all hover:after:w-full">Contact</a>
+                <a href="https://wa.me/27675770030" target="_blank" class="bg-brand-dark text-white px-6 py-2.5 rounded-full font-semibold hover:bg-brand-yellow hover:text-brand-dark transition-all transform hover:scale-105 shadow-lg flex items-center gap-2">
+                    <i class="fab fa-whatsapp"></i> Book Now
+                </a>
+            </div>
+
+            <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden text-2xl text-brand-dark focus:outline-none">
+                <i class="fas" :class="mobileMenuOpen ? 'fa-times' : 'fa-bars'"></i>
+            </button>
+        </div>
+
+        <div x-show="mobileMenuOpen" x-transition.origin.top class="md:hidden bg-white border-t absolute w-full shadow-xl">
+            <div class="flex flex-col p-6 space-y-4 font-medium text-center">
+                <a @click="mobileMenuOpen = false" href="#home" class="py-2 hover:text-brand-yellow">Home</a>
+                <a @click="mobileMenuOpen = false" href="#about" class="py-2 hover:text-brand-yellow">About</a>
+                <a @click="mobileMenuOpen = false" href="#properties" class="py-2 hover:text-brand-yellow">Residences</a>
+                <a @click="mobileMenuOpen = false" href="#contact" class="py-2 hover:text-brand-yellow">Contact</a>
+                <a href="https://wa.me/27675770030" class="bg-brand-yellow text-brand-dark py-3 rounded-xl font-bold">Book on WhatsApp</a>
+            </div>
+        </div>
+    </nav>
+
+    <header id="home" class="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <video autoplay muted loop playsinline class="w-full h-full object-cover animate-slow-zoom">
+                <source src="home/living property video.mp4" type="video/mp4">
+                <img src="https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=2080&auto=format&fit=crop" class="w-full h-full object-cover" alt="Student Accommodation">
+            </video>
+            <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-brand-dark/90"></div>
+        </div>
+
+        <div class="relative z-10 container mx-auto px-6 text-center text-white mt-16">
+            <span class="inline-block py-1 px-3 rounded-full bg-brand-yellow/20 border border-brand-yellow text-brand-yellow text-xs font-bold tracking-widest uppercase mb-6 animate-fade-in-up">Est. 2023</span>
+            <h1 class="text-5xl md:text-7xl font-extrabold mb-6 leading-tight animate-fade-in-up group hover:text-brand-yellow transition-colors" style="animation-delay: 0.1s;">
+                Find Your <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-yellow to-yellow-200 group-hover:text-white group-hover:bg-none transition-colors">Home Away From Home</span>
+            </h1>
+            <p class="text-lg md:text-xl text-gray-300 mb-10 max-w-2xl mx-auto font-light animate-fade-in-up" style="animation-delay: 0.2s;">
+                Premium student accommodation for UKZN, DUT, and EThekwini College. Safe, reliable, and conducive to your success.
+            </p>
+            <div class="flex flex-col md:flex-row justify-center gap-4 animate-fade-in-up" style="animation-delay: 0.3s;">
+                <a href="#properties" class="bg-brand-yellow text-brand-dark px-8 py-4 rounded-full font-bold hover:bg-white hover:scale-105 transition-all shadow-[0_0_20px_rgba(251,191,36,0.5)]">
+                    View Residences
+                </a>
+                <a href="#about" class="px-8 py-4 rounded-full font-bold border border-white/30 hover:bg-white/10 hover:border-white transition-all backdrop-blur-sm">
+                    Learn More
+                </a>
+            </div>
+        </div>
+
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-white/50">
+            <i class="fas fa-chevron-down text-2xl"></i>
+        </div>
+    </header>
+
+    <section id="about" class="py-24 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="order-2 lg:order-1">
+                    <h2 class="text-4xl font-bold text-brand-dark mb-6">More Than Just a Room.</h2>
+                    <p class="text-gray-600 text-lg leading-relaxed mb-8">
+                        At Living Property Management, we bridge the gap between students and high-quality housing. We understand the pressure of academic life, which is why we provide environments that are safe, secure, and ready for you to thrive in.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 shrink-0">
+                                <i class="fas fa-shield-alt text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-brand-dark">24/7 Security</h4>
+                                <p class="text-sm text-gray-500">Onsite guards & safe access.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-full bg-green-50 flex items-center justify-center text-green-600 shrink-0">
+                                <i class="fas fa-wifi text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-brand-dark">Unlimited Wi-Fi</h4>
+                                <p class="text-sm text-gray-500">High-speed for studies.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-full bg-yellow-50 flex items-center justify-center text-yellow-600 shrink-0">
+                                <i class="fas fa-bus text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-brand-dark">Transport</h4>
+                                <p class="text-sm text-gray-500">Shuttles to campus.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-full bg-purple-50 flex items-center justify-center text-purple-600 shrink-0">
+                                <i class="fas fa-soap text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-brand-dark">Laundry</h4>
+                                <p class="text-sm text-gray-500">Washing machines onsite.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="order-1 lg:order-2 grid grid-cols-2 gap-4">
+                    <img src="Private accomodation/westville/windsor property/IMG-20260125-WA0105.jpg" class="rounded-2xl shadow-xl w-full h-64 object-cover transform translate-y-8">
+                    <img src="Private accomodation/westville/Lindokuhle Private accomodation/IMG-20260122-WA0160.jpg" class="rounded-2xl shadow-xl w-full h-64 object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="properties" class="py-24 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-4xl font-bold text-brand-dark mb-4">Our Residences</h2>
+                <p class="text-gray-600">Select your campus to find the perfect accommodation closest to your classes.</p>
+            </div>
+
+            <div class="flex flex-wrap justify-center gap-3 mb-12">
+                <template x-for="tab in ['All', 'Westville', 'Howard', 'Edgewood', 'DUT']">
+                    <button 
+                        @click="activeTab = tab" 
+                        :class="activeTab === tab ? 'bg-brand-dark text-white ring-4 ring-brand-dark/20' : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'"
+                        class="px-6 py-2.5 rounded-full font-semibold transition-all duration-300 shadow-sm"
+                        x-text="tab">
+                    </button>
+                </template>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <div x-show="activeTab === 'All' || activeTab === 'Westville'" x-transition.opacity.duration.500ms class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group border border-gray-100 flex flex-col cursor-pointer" @click="window.location.href='lindokuhle.html'">
+                    <div class="relative h-56 overflow-hidden">
+                        <img id="slideshow-img" src="Private accomodation/westville/Lindokuhle Private accomodation/IMG-20260122-WA0140.jpg" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-200" style="transform: scale(1.2)">
+                        <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-md text-xs font-bold uppercase text-brand-dark shadow-sm">Westville Campus</div>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-brand-dark group-hover:text-brand-yellow transition">Lindokuhle Private Acc.</h3>
+                            <i class="fas fa-check-circle text-green-500" title="Verified"></i>
+                        </div>
+                        <div class="space-y-2 mb-6 text-sm text-gray-600 flex-grow">
+                            <p class="flex items-center gap-2"><i class="fas fa-bed text-brand-yellow w-5 text-center"></i> 2 Sleepers Only</p>
+                            <p class="flex items-center gap-2"><i class="fas fa-tv text-brand-yellow w-5 text-center"></i> TV Room & Lounge</p>
+                            <p class="flex items-center gap-2"><i class="fas fa-shield-alt text-brand-yellow w-5 text-center"></i> 24/7 Security Onsite</p>
+                        </div>
+                        <div class="pt-4 border-t border-gray-100 mt-auto">
+                            <p class="text-xs text-gray-400 mb-2">Manager: Bebonke Junda</p>
+                            <div class="flex gap-2" @click.stop>
+                                <a href="lindokuhle.html" class="flex-1 text-center bg-brand-dark hover:bg-brand-yellow text-white hover:text-brand-dark font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2">
+                                    <i class="fas fa-eye"></i> View Details
+                                </a>
+                                <a href="https://wa.me/27675770030?text=Hi,%20I'm%20interested%20in%20Lindokuhle%20Residence" target="_blank" class="flex-1 text-center bg-green-500 hover:bg-green-600 text-white font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2">
+                                    <i class="fab fa-whatsapp text-lg"></i> WhatsApp
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div x-show="activeTab === 'All' || activeTab === 'Westville'" x-transition.opacity.duration.500ms class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group border border-gray-100 flex flex-col cursor-pointer" @click="window.location.href='urban-up.html'">
+                    <div class="relative h-56 overflow-hidden">
+                        <img id="slideshow-urbanup" src="Private accomodation/westville/Urban Up/IMG-20260125-WA0115.jpg" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-200" style="transform: scale(1.2)">
+                        <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-md text-xs font-bold uppercase text-brand-dark shadow-sm">Westville Campus</div>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <h3 class="text-xl font-bold text-brand-dark mb-2">Urban Up Residence</h3>
+                        <div class="space-y-2 mb-6 text-sm text-gray-600 flex-grow">
+                            <p class="flex items-center gap-2"><i class="fas fa-bed text-brand-yellow w-5 text-center"></i> 2 Sleepers Only</p>
+                            <p class="flex items-center gap-2"><i class="fas fa-wifi text-brand-yellow w-5 text-center"></i> Unlimited Wifi</p>
+                            <p class="flex items-center gap-2"><i class="fas fa-soap text-brand-yellow w-5 text-center"></i> Washing Machines</p>
+                        </div>
+                        <div class="pt-4 border-t border-gray-100 mt-auto">
+                            <p class="text-xs text-gray-400 mb-2">Manager: Mkhabela</p>
+                            <div class="flex gap-2" @click.stop>
+                                <a href="urban-up.html" class="flex-1 text-center bg-brand-dark hover:bg-brand-yellow text-white hover:text-brand-dark font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2">
+                                    <i class="fas fa-eye"></i> View Details
+                                </a>
+                                <a href="https://wa.me/27681024092?text=Hi,%20I'm%20interested%20in%20Urban%20Up%20Residence" target="_blank" class="flex-1 text-center bg-green-500 hover:bg-green-600 text-white font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2">
+                                    <i class="fab fa-whatsapp text-lg"></i> WhatsApp
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div x-show="activeTab === 'All' || activeTab === 'Howard'" x-transition.opacity.duration.500ms class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group border border-gray-100 flex flex-col cursor-pointer" @click="window.location.href='hlelo.html'">
+                    <div class="relative h-56 overflow-hidden">
+                        <img id="slideshow-hlelo" src="Private accomodation/Howard/Hlelo properties/IMG-20260125-WA0198.jpg" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-200" style="transform: scale(1.2)">
+                        <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-md text-xs font-bold uppercase text-brand-dark shadow-sm">Howard Campus</div>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <h3 class="text-xl font-bold text-brand-dark mb-2">Hlelo Properties</h3>
+                        <div class="space-y-2 mb-6 text-sm text-gray-600 flex-grow">
+                            <p class="flex items-center gap-2"><i class="fas fa-bus text-brand-yellow w-5 text-center"></i> Transport Available</p>
+                            <p class="flex items-center gap-2"><i class="fas fa-utensils text-brand-yellow w-5 text-center"></i> Full Kitchen</p>
+                            <p class="flex items-center gap-2"><i class="fas fa-couch text-brand-yellow w-5 text-center"></i> TV Room & Lounge</p>
+                        </div>
+                        <div class="pt-4 border-t border-gray-100 mt-auto">
+                            <p class="text-xs text-gray-400 mb-2">Contact: Facedrop / Mluh</p>
+                            <div class="flex gap-2" @click.stop>
+                                <a href="hlelo.html" class="flex-1 text-center bg-brand-dark hover:bg-brand-yellow text-white hover:text-brand-dark font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2">
+                                    <i class="fas fa-eye"></i> View Details
+                                </a>
+                                <a href="https://wa.me/27607296762?text=Hi,%20I'm%20interested%20in%20Hlelo%20Howard" target="_blank" class="flex-1 text-center bg-green-500 hover:bg-green-600 text-white font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2">
+                                    <i class="fab fa-whatsapp text-lg"></i> WhatsApp
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div x-show="activeTab === 'All' || activeTab === 'Howard' || activeTab === 'DUT'" x-transition.opacity.duration.500ms class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group border border-gray-100 flex flex-col cursor-pointer" @click="window.location.href='joda.html'">
+                    <div class="relative h-56 overflow-hidden">
+                        <img id="slideshow-joda" src="Private accomodation/Howard/Joda accomodation/IMG-20260125-WA0153.jpg" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-200" style="transform: scale(1.2)">
+                        <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-md text-xs font-bold uppercase text-brand-dark shadow-sm">Howard Campus</div>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <h3 class="text-xl font-bold text-brand-dark mb-2">Joda Accommodation</h3>
+                        <div class="space-y-2 mb-6 text-sm text-gray-600 flex-grow">
+                            <p class="flex items-center gap-2"><i class="fas fa-bed text-brand-yellow w-5 text-center"></i> 2 & 3 Sleepers</p>
+                            <p class="flex items-center gap-2"><i class="fas fa-wifi text-brand-yellow w-5 text-center"></i> Unlimited Wifi</p>
+                            <p class="flex items-center gap-2"><i class="fas fa-shield-alt text-brand-yellow w-5 text-center"></i> 24/7 Security</p>
+                        </div>
+                        <div class="pt-4 border-t border-gray-100 mt-auto">
+                            <p class="text-xs text-gray-400 mb-2">Manager: Innocent</p>
+                            <div class="flex gap-2" @click.stop>
+                                <a href="joda.html" class="flex-1 text-center bg-brand-dark hover:bg-brand-yellow text-white hover:text-brand-dark font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2">
+                                    <i class="fas fa-eye"></i> View Details
+                                </a>
+                                <a href="https://wa.me/27794490728?text=Hi,%20I'm%20interested%20in%20Joda%20Accommodation" target="_blank" class="flex-1 text-center bg-green-500 hover:bg-green-600 text-white font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2">
+                                    <i class="fab fa-whatsapp text-lg"></i> WhatsApp
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div x-show="activeTab === 'All' || activeTab === 'Westville'" x-transition.opacity.duration.500ms class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group border border-gray-100 flex flex-col cursor-pointer" @click="window.location.href='bee-hives.html'">
+                    <div class="relative h-56 overflow-hidden">
+                        <img id="slideshow-beehives" src="Private accomodation/westville/Bee Hives/IMG-20260124-WA0003.jpg" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-200" style="transform: scale(1.2)">
+                        <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-md text-xs font-bold uppercase text-brand-dark shadow-sm">Westville Campus</div>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <h3 class="text-xl font-bold text-brand-dark mb-2">Bee Hives</h3>
+                        <div class="space-y-2 mb-6 text-sm text-gray-600 flex-grow">
+                            <p class="flex items-center gap-2"><i class="fas fa-bed text-brand-yellow w-5 text-center"></i> 2 Sleepers Only</p>
+                            <p class="flex items-center gap-2"><i class="fas fa-wifi text-brand-yellow w-5 text-center"></i> Unlimited Wifi</p>
+                            <p class="flex items-center gap-2"><i class="fas fa-shield-alt text-brand-yellow w-5 text-center"></i> 24/7 Security</p>
+                        </div>
+                        <div class="pt-4 border-t border-gray-100 mt-auto">
+                            <p class="text-xs text-gray-400 mb-2">Manager: Nkosikhona</p>
+                            <div class="flex gap-2" @click.stop>
+                                <a href="bee-hives.html" class="flex-1 text-center bg-brand-dark hover:bg-brand-yellow text-white hover:text-brand-dark font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2">
+                                    <i class="fas fa-eye"></i> View Details
+                                </a>
+                                <a href="https://wa.me/27675770030?text=Hi,%20I'm%20interested%20in%20Bee%20Hives" target="_blank" class="flex-1 text-center bg-green-500 hover:bg-green-600 text-white font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2">
+                                    <i class="fab fa-whatsapp text-lg"></i> WhatsApp
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div x-show="activeTab === 'All' || activeTab === 'Westville'" x-transition.opacity.duration.500ms class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group border border-gray-100 flex flex-col cursor-pointer" @click="window.location.href='river-view.html'">
+                    <div class="relative h-56 overflow-hidden">
+                        <img id="slideshow-riverview" src="Private accomodation/westville/River view/IMG-20260125-WA0134.jpg" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-200" style="transform: scale(1.2)">
+                        <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-md text-xs font-bold uppercase text-brand-dark shadow-sm">Westville Campus</div>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <h3 class="text-xl font-bold text-brand-dark mb-2">River View</h3>
+                        <div class="space-y-2 mb-6 text-sm text-gray-600 flex-grow">
+                            <p class="flex items-center gap-2"><i class="fas fa-bed text-brand-yellow w-5 text-center"></i> 2 & 3 Sleepers</p>
+                            <p class="flex items-center gap-2"><i class="fas fa-wifi text-brand-yellow w-5 text-center"></i> Unlimited Wifi</p>
+                            <p class="flex items-center gap-2"><i class="fas fa-shield-alt text-brand-yellow w-5 text-center"></i> 24/7 Security</p>
+                        </div>
+                        <div class="pt-4 border-t border-gray-100 mt-auto">
+                            <p class="text-xs text-gray-400 mb-2">Manager: Mlulu</p>
+                            <div class="flex gap-2" @click.stop>
+                                <a href="river-view.html" class="flex-1 text-center bg-brand-dark hover:bg-brand-yellow text-white hover:text-brand-dark font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2">
+                                    <i class="fas fa-eye"></i> View Details
+                                </a>
+                                <a href="https://wa.me/27607296762?text=Hi,%20I'm%20interested%20in%20River%20View" target="_blank" class="flex-1 text-center bg-green-500 hover:bg-green-600 text-white font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2">
+                                    <i class="fab fa-whatsapp text-lg"></i> WhatsApp
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div x-show="activeTab === 'All' || activeTab === 'Westville'" x-transition.opacity.duration.500ms class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group border border-gray-100 flex flex-col cursor-pointer" @click="window.location.href='ridge-view.html'">
+                    <div class="relative h-56 overflow-hidden">
+                        <img id="slideshow-ridgeview" src="Private accomodation/westville/Rigde view/IMG-20260125-WA0219.jpg" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-200" style="transform: scale(1.2)">
+                        <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-md text-xs font-bold uppercase text-brand-dark shadow-sm">Westville Campus</div>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <h3 class="text-xl font-bold text-brand-dark mb-2">Ridge View</h3>
+                        <div class="space-y-2 mb-6 text-sm text-gray-600 flex-grow">
+                            <p class="flex items-center gap-2"><i class="fas fa-bed text-brand-yellow w-5 text-center"></i> 2 & 3 Sleepers</p>
+                            <p class="flex items-center gap-2"><i class="fas fa-wifi text-brand-yellow w-5 text-center"></i> Unlimited Wifi</p>
+                            <p class="flex items-center gap-2"><i class="fas fa-shield-alt text-brand-yellow w-5 text-center"></i> 24/7 Security</p>
+                        </div>
+                        <div class="pt-4 border-t border-gray-100 mt-auto">
+                            <p class="text-xs text-gray-400 mb-2">Manager: Sanele</p>
+                            <div class="flex gap-2" @click.stop>
+                                <a href="ridge-view.html" class="flex-1 text-center bg-brand-dark hover:bg-brand-yellow text-white hover:text-brand-dark font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2">
+                                    <i class="fas fa-eye"></i> View Details
+                                </a>
+                                <a href="https://wa.me/27675770030?text=Hi,%20I'm%20interested%20in%20Ridge%20View" target="_blank" class="flex-1 text-center bg-green-500 hover:bg-green-600 text-white font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2">
+                                    <i class="fab fa-whatsapp text-lg"></i> WhatsApp
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div x-show="activeTab === 'All' || activeTab === 'Westville'" x-transition.opacity.duration.500ms class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group border border-gray-100 flex flex-col cursor-pointer" @click="window.location.href='sabelos.html'">
+                    <div class="relative h-56 overflow-hidden">
+                        <img id="slideshow-sabelos" src="Private accomodation/westville/Sabelo's guest house/IMG-20260125-WA0272.jpg" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-200" style="transform: scale(1.2)">
+                        <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-md text-xs font-bold uppercase text-brand-dark shadow-sm">Westville Campus</div>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <h3 class="text-xl font-bold text-brand-dark mb-2">Sabelo's Guest House</h3>
+                        <div class="space-y-2 mb-6 text-sm text-gray-600 flex-grow">
+                            <p class="flex items-center gap-2"><i class="fas fa-bed text-brand-yellow w-5 text-center"></i> 2 & 3 Sleepers</p>
+                            <p class="flex items-center gap-2"><i class="fas fa-wifi text-brand-yellow w-5 text-center"></i> Unlimited Wifi</p>
+                            <p class="flex items-center gap-2"><i class="fas fa-shield-alt text-brand-yellow w-5 text-center"></i> 24/7 Security</p>
+                        </div>
+                        <div class="pt-4 border-t border-gray-100 mt-auto">
+                            <p class="text-xs text-gray-400 mb-2">Manager: Sabelo</p>
+                            <div class="flex gap-2" @click.stop>
+                                <a href="sabelos.html" class="flex-1 text-center bg-brand-dark hover:bg-brand-yellow text-white hover:text-brand-dark font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2">
+                                    <i class="fas fa-eye"></i> View Details
+                                </a>
+                                <a href="https://wa.me/27675770030?text=Hi,%20I'm%20interested%20in%20Sabelo's%20Guest%20House" target="_blank" class="flex-1 text-center bg-green-500 hover:bg-green-600 text-white font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2">
+                                    <i class="fab fa-whatsapp text-lg"></i> WhatsApp
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div x-show="activeTab === 'All' || activeTab === 'Westville'" x-transition.opacity.duration.500ms class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group border border-gray-100 flex flex-col cursor-pointer" @click="window.location.href='windsor.html'">
+                    <div class="relative h-56 overflow-hidden">
+                        <img id="slideshow-windsor" src="Private accomodation/westville/windsor property/IMG-20260125-WA0097.jpg" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-200" style="transform: scale(1.2)">
+                        <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-md text-xs font-bold uppercase text-brand-dark shadow-sm">Westville Campus</div>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <h3 class="text-xl font-bold text-brand-dark mb-2">Windsor Property</h3>
+                        <div class="space-y-2 mb-6 text-sm text-gray-600 flex-grow">
+                            <p class="flex items-center gap-2"><i class="fas fa-bed text-brand-yellow w-5 text-center"></i> 2 & 3 Sleepers</p>
+                            <p class="flex items-center gap-2"><i class="fas fa-wifi text-brand-yellow w-5 text-center"></i> Unlimited Wifi</p>
+                            <p class="flex items-center gap-2"><i class="fas fa-shield-alt text-brand-yellow w-5 text-center"></i> 24/7 Security</p>
+                        </div>
+                        <div class="pt-4 border-t border-gray-100 mt-auto">
+                            <p class="text-xs text-gray-400 mb-2">Manager: Sizwe</p>
+                            <div class="flex gap-2" @click.stop>
+                                <a href="windsor.html" class="flex-1 text-center bg-brand-dark hover:bg-brand-yellow text-white hover:text-brand-dark font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2">
+                                    <i class="fas fa-eye"></i> View Details
+                                </a>
+                                <a href="https://wa.me/27675770030?text=Hi,%20I'm%20interested%20in%20Windsor%20Property" target="_blank" class="flex-1 text-center bg-green-500 hover:bg-green-600 text-white font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2">
+                                    <i class="fab fa-whatsapp text-lg"></i> WhatsApp
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact" class="bg-black text-white pt-20 pb-10 border-t border-gray-800">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-12 mb-16">
+                <div class="col-span-1 md:col-span-1">
+                    <div class="flex items-center gap-2 mb-6">
+                        <img src="lpm logo.png" alt="Living Property Management Logo" class="w-12 h-12 rounded-full object-contain bg-white p-1.5">
+                        <span class="font-bold text-xl">LIVING PROPERTY</span>
+                    </div>
+                    <p class="text-gray-500 text-sm leading-relaxed">
+                        Student-focused accommodation management committed to providing safe, reliable, and high-quality private housing solutions since 2023.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-lg mb-6 text-brand-yellow">Quick Links</h4>
+                    <ul class="space-y-3 text-gray-400 text-sm">
+                        <li><a href="#home" class="hover:text-white transition">Home</a></li>
+                        <li><a href="#about" class="hover:text-white transition">About Us</a></li>
+                        <li><a href="#properties" class="hover:text-white transition">Residences</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-lg mb-6 text-brand-yellow">Contact Us</h4>
+                    <ul class="space-y-3 text-gray-400 text-sm">
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-envelope mt-1 text-brand-yellow"></i>
+                           livingpropertym@outlook.com 
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-phone mt-1 text-brand-yellow"></i>
+                           067 577 0030 (Bebonke)
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-map-marker-alt mt-1 text-brand-yellow"></i>
+                            Durban, KwaZulu-Natal
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-lg mb-6 text-brand-yellow">Follow Us</h4>
+                    <div class="flex gap-4">
+                        <a href="https://tiktok.com/@livingproperty.m" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-brand-yellow hover:text-brand-dark transition-all">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-brand-yellow hover:text-brand-dark transition-all">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-brand-yellow hover:text-brand-dark transition-all">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-900 pt-8 text-center text-gray-600 text-sm">
+                &copy; 2026 Living Property Management. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Slideshow data for each residence
+        const slideshows = {
+            'slideshow-lindokuhle': [
+                'Private accomodation/westville/Lindokuhle Private accomodation/IMG-20260122-WA0140.jpg',
+                'Private accomodation/westville/Lindokuhle Private accomodation/IMG-20260122-WA0142.jpg',
+                'Private accomodation/westville/Lindokuhle Private accomodation/IMG-20260122-WA0145.jpg',
+                'Private accomodation/westville/Lindokuhle Private accomodation/IMG-20260122-WA0146.jpg',
+                'Private accomodation/westville/Lindokuhle Private accomodation/IMG-20260122-WA0149.jpg',
+                'Private accomodation/westville/Lindokuhle Private accomodation/IMG-20260122-WA0151.jpg',
+                'Private accomodation/westville/Lindokuhle Private accomodation/IMG-20260122-WA0152.jpg',
+                'Private accomodation/westville/Lindokuhle Private accomodation/IMG-20260122-WA0156.jpg',
+                'Private accomodation/westville/Lindokuhle Private accomodation/IMG-20260122-WA0159.jpg',
+                'Private accomodation/westville/Lindokuhle Private accomodation/IMG-20260122-WA0160.jpg',
+                'Private accomodation/westville/Lindokuhle Private accomodation/IMG-20260122-WA0162.jpg'
+            ],
+            'slideshow-urbanup': [
+                'Private accomodation/westville/Urban Up/IMG-20260125-WA0115.jpg',
+                'Private accomodation/westville/Urban Up/IMG-20260125-WA0118.jpg',
+                'Private accomodation/westville/Urban Up/IMG-20260125-WA0119.jpg',
+                'Private accomodation/westville/Urban Up/IMG-20260125-WA0120.jpg',
+                'Private accomodation/westville/Urban Up/IMG-20260125-WA0121.jpg'
+            ],
+            'slideshow-hlelo': [
+                'Private accomodation/Howard/Hlelo properties/IMG-20260125-WA0198.jpg',
+                'Private accomodation/Howard/Hlelo properties/IMG-20260125-WA0202.jpg',
+                'Private accomodation/Howard/Hlelo properties/IMG-20260125-WA0207.jpg',
+                'Private accomodation/Howard/Hlelo properties/IMG-20260125-WA0209.jpg',
+                'Private accomodation/Howard/Hlelo properties/IMG-20260125-WA0210.jpg',
+                'Private accomodation/Howard/Hlelo properties/IMG-20260125-WA0211.jpg',
+                'Private accomodation/Howard/Hlelo properties/IMG-20260125-WA0212.jpg',
+                'Private accomodation/Howard/Hlelo properties/IMG-20260125-WA0213.jpg',
+                'Private accomodation/Howard/Hlelo properties/IMG-20260125-WA0214.jpg',
+                'Private accomodation/Howard/Hlelo properties/IMG-20260125-WA0215.jpg',
+                'Private accomodation/Howard/Hlelo properties/IMG-20260125-WA0216.jpg',
+                'Private accomodation/Howard/Hlelo properties/IMG-20260125-WA0218.jpg'
+            ],
+            'slideshow-joda': [
+                'Private accomodation/Howard/Joda accomodation/IMG-20260125-WA0153.jpg',
+                'Private accomodation/Howard/Joda accomodation/IMG-20260125-WA0161.jpg',
+                'Private accomodation/Howard/Joda accomodation/IMG-20260125-WA0165.jpg',
+                'Private accomodation/Howard/Joda accomodation/IMG-20260125-WA0166.jpg',
+                'Private accomodation/Howard/Joda accomodation/IMG-20260125-WA0167.jpg',
+                'Private accomodation/Howard/Joda accomodation/IMG-20260125-WA0168.jpg',
+                'Private accomodation/Howard/Joda accomodation/IMG-20260125-WA0169.jpg',
+                'Private accomodation/Howard/Joda accomodation/IMG-20260125-WA0170.jpg',
+                'Private accomodation/Howard/Joda accomodation/IMG-20260125-WA0171.jpg',
+                'Private accomodation/Howard/Joda accomodation/IMG-20260125-WA0172.jpg',
+                'Private accomodation/Howard/Joda accomodation/IMG-20260125-WA0174.jpg',
+                'Private accomodation/Howard/Joda accomodation/IMG-20260125-WA0175.jpg',
+                'Private accomodation/Howard/Joda accomodation/IMG-20260125-WA0176.jpg',
+                'Private accomodation/Howard/Joda accomodation/IMG-20260125-WA0177.jpg',
+                'Private accomodation/Howard/Joda accomodation/IMG-20260125-WA0179.jpg'
+            ],
+            'slideshow-beehives': [
+                'Private accomodation/westville/Bee Hives/IMG-20260124-WA0003.jpg',
+                'Private accomodation/westville/Bee Hives/IMG-20260125-WA0063.jpg',
+                'Private accomodation/westville/Bee Hives/IMG-20260125-WA0064.jpg',
+                'Private accomodation/westville/Bee Hives/IMG-20260125-WA0065.jpg',
+                'Private accomodation/westville/Bee Hives/IMG-20260125-WA0066.jpg',
+                'Private accomodation/westville/Bee Hives/IMG-20260125-WA0067.jpg',
+                'Private accomodation/westville/Bee Hives/IMG-20260125-WA0068.jpg',
+                'Private accomodation/westville/Bee Hives/IMG-20260125-WA0069.jpg'
+            ],
+            'slideshow-riverview': [
+                'Private accomodation/westville/River view/IMG-20260125-WA0134.jpg',
+                'Private accomodation/westville/River view/IMG-20260125-WA0136.jpg',
+                'Private accomodation/westville/River view/IMG-20260125-WA0137.jpg',
+                'Private accomodation/westville/River view/IMG-20260125-WA0138.jpg',
+                'Private accomodation/westville/River view/IMG-20260125-WA0140.jpg',
+                'Private accomodation/westville/River view/IMG-20260125-WA0143.jpg',
+                'Private accomodation/westville/River view/IMG-20260125-WA0145.jpg',
+                'Private accomodation/westville/River view/IMG-20260125-WA0146.jpg'
+            ],
+            'slideshow-ridgeview': [
+                'Private accomodation/westville/Rigde view/IMG-20260125-WA0219.jpg',
+                'Private accomodation/westville/Rigde view/IMG-20260125-WA0235.jpg',
+                'Private accomodation/westville/Rigde view/IMG-20260125-WA0237.jpg',
+                'Private accomodation/westville/Rigde view/IMG-20260125-WA0238.jpg',
+                'Private accomodation/westville/Rigde view/IMG-20260125-WA0242.jpg',
+                'Private accomodation/westville/Rigde view/IMG-20260125-WA0243.jpg',
+                'Private accomodation/westville/Rigde view/IMG-20260125-WA0244.jpg',
+                'Private accomodation/westville/Rigde view/IMG-20260125-WA0245.jpg',
+                'Private accomodation/westville/Rigde view/IMG-20260125-WA0246.jpg',
+                'Private accomodation/westville/Rigde view/IMG-20260125-WA0247.jpg',
+                'Private accomodation/westville/Rigde view/IMG-20260125-WA0249.jpg'
+            ],
+            'slideshow-sabelos': [
+                'Private accomodation/westville/Sabelo\'s guest house/IMG-20260125-WA0272.jpg',
+                'Private accomodation/westville/Sabelo\'s guest house/IMG-20260125-WA0277.jpg',
+                'Private accomodation/westville/Sabelo\'s guest house/IMG-20260125-WA0278.jpg',
+                'Private accomodation/westville/Sabelo\'s guest house/IMG-20260125-WA0279.jpg',
+                'Private accomodation/westville/Sabelo\'s guest house/IMG-20260125-WA0281.jpg',
+                'Private accomodation/westville/Sabelo\'s guest house/IMG-20260125-WA0282.jpg',
+                'Private accomodation/westville/Sabelo\'s guest house/IMG-20260125-WA0283.jpg',
+                'Private accomodation/westville/Sabelo\'s guest house/IMG-20260125-WA0284.jpg',
+                'Private accomodation/westville/Sabelo\'s guest house/IMG-20260125-WA0285.jpg',
+                'Private accomodation/westville/Sabelo\'s guest house/IMG-20260125-WA0287.jpg',
+                'Private accomodation/westville/Sabelo\'s guest house/IMG-20260125-WA0288.jpg',
+                'Private accomodation/westville/Sabelo\'s guest house/IMG-20260125-WA0289.jpg',
+                'Private accomodation/westville/Sabelo\'s guest house/IMG-20260125-WA0290.jpg',
+                'Private accomodation/westville/Sabelo\'s guest house/IMG-20260125-WA0291.jpg'
+            ],
+            'slideshow-windsor': [
+                'Private accomodation/westville/windsor property/IMG-20260125-WA0097.jpg',
+                'Private accomodation/westville/windsor property/IMG-20260125-WA0098.jpg',
+                'Private accomodation/westville/windsor property/IMG-20260125-WA0099.jpg',
+                'Private accomodation/westville/windsor property/IMG-20260125-WA0100.jpg',
+                'Private accomodation/westville/windsor property/IMG-20260125-WA0104.jpg',
+                'Private accomodation/westville/windsor property/IMG-20260125-WA0105.jpg',
+                'Private accomodation/westville/windsor property/IMG-20260125-WA0106.jpg'
+            ]
+        };
+
+        // Initialize slideshows
+        const slideshowIndices = {};
+        
+        Object.keys(slideshows).forEach(id => {
+            slideshowIndices[id] = 0;
+            
+            setInterval(() => {
+                const img = document.getElementById(id);
+                if (img) {
+                    slideshowIndices[id] = (slideshowIndices[id] + 1) % slideshows[id].length;
+                    img.style.transform = 'scale(1.2)';
+                    img.src = slideshows[id][slideshowIndices[id]];
+                    setTimeout(() => {
+                        img.style.transform = 'scale(1)';
+                    }, 50);
+                }
+            }, 3000); // Change image every 3 seconds
+        });
+    </script>
+
+</body>
+</html>
