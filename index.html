@@ -58,6 +58,53 @@
             backdrop-filter: blur(10px);
         }
     </style>
+
+    <script>
+        // Detect if device is mobile and set appropriate video
+        function isMobileDevice() {
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            
+            // Check common mobile user agents
+            if (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent.toLowerCase())) {
+                return true;
+            }
+            
+            // Check screen width (tablet/phone threshold)
+            if (window.matchMedia('(max-width: 768px)').matches) {
+                return true;
+            }
+            
+            return false;
+        }
+
+        // Set video source based on device type
+        function setVideoSource() {
+            const video = document.getElementById('heroVideo');
+            if (!video) return;
+            
+            const source = video.querySelector('source');
+            const mobileVideoPath = 'home/living property mobile.mp4';
+            const desktopVideoPath = 'home/living property video.mp4';
+            
+            if (isMobileDevice()) {
+                source.src = mobileVideoPath;
+            } else {
+                source.src = desktopVideoPath;
+            }
+            
+            video.load();
+        }
+
+        // Run on page load
+        document.addEventListener('DOMContentLoaded', setVideoSource);
+        
+        // Also run immediately in case DOM is already loaded
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', setVideoSource);
+        } else {
+            setVideoSource();
+        }
+    </script>
 </head>
 <body class="bg-gray-50 text-gray-800 antialiased" x-data="{ mobileMenuOpen: false, activeTab: 'All' }">
 
@@ -99,7 +146,7 @@
 
     <header id="home" class="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
         <div class="absolute inset-0 z-0">
-            <video autoplay muted loop playsinline class="w-full h-full object-cover animate-slow-zoom">
+            <video id="heroVideo" autoplay muted loop playsinline class="w-full h-full object-cover animate-slow-zoom">
                 <source src="home/living property video.mp4" type="video/mp4">
                 <img src="https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=2080&auto=format&fit=crop" class="w-full h-full object-cover" alt="Student Accommodation">
             </video>
