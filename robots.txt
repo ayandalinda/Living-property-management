@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /Private accomodation/
+Disallow: /home/
+
+Sitemap: https://livingpropertymanagement.co.za/sitemap.xml

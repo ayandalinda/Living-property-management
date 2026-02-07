@@ -96,20 +96,20 @@
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-5 gap-4">
-                        <button @click="currentImageIndex = 0" class="h-24 rounded-lg overflow-hidden border-2 border-transparent hover:border-brand-yellow transition">
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+                        <button @click="currentImageIndex = 0" :class="currentImageIndex === 0 ? 'ring-4 ring-brand-yellow shadow-lg scale-105' : 'hover:shadow-md'" class="h-28 rounded-xl overflow-hidden border-2 border-gray-200 transition-all duration-300 hover:border-brand-yellow hover:scale-105">
                             <img src="Private accomodation/westville/Urban Up/IMG-20260125-WA0115.jpg" class="w-full h-full object-cover" alt="Gallery">
                         </button>
-                        <button @click="currentImageIndex = 1" class="h-24 rounded-lg overflow-hidden border-2 border-transparent hover:border-brand-yellow transition">
+                        <button @click="currentImageIndex = 1" :class="currentImageIndex === 1 ? 'ring-4 ring-brand-yellow shadow-lg scale-105' : 'hover:shadow-md'" class="h-28 rounded-xl overflow-hidden border-2 border-gray-200 transition-all duration-300 hover:border-brand-yellow hover:scale-105">
                             <img src="Private accomodation/westville/Urban Up/IMG-20260125-WA0118.jpg" class="w-full h-full object-cover" alt="Gallery">
                         </button>
-                        <button @click="currentImageIndex = 2" class="h-24 rounded-lg overflow-hidden border-2 border-transparent hover:border-brand-yellow transition">
+                        <button @click="currentImageIndex = 2" :class="currentImageIndex === 2 ? 'ring-4 ring-brand-yellow shadow-lg scale-105' : 'hover:shadow-md'" class="h-28 rounded-xl overflow-hidden border-2 border-gray-200 transition-all duration-300 hover:border-brand-yellow hover:scale-105">
                             <img src="Private accomodation/westville/Urban Up/IMG-20260125-WA0119.jpg" class="w-full h-full object-cover" alt="Gallery">
                         </button>
-                        <button @click="currentImageIndex = 3" class="h-24 rounded-lg overflow-hidden border-2 border-transparent hover:border-brand-yellow transition">
+                        <button @click="currentImageIndex = 3" :class="currentImageIndex === 3 ? 'ring-4 ring-brand-yellow shadow-lg scale-105' : 'hover:shadow-md'" class="h-28 rounded-xl overflow-hidden border-2 border-gray-200 transition-all duration-300 hover:border-brand-yellow hover:scale-105">
                             <img src="Private accomodation/westville/Urban Up/IMG-20260125-WA0120.jpg" class="w-full h-full object-cover" alt="Gallery">
                         </button>
-                        <button @click="currentImageIndex = 4" class="h-24 rounded-lg overflow-hidden border-2 border-transparent hover:border-brand-yellow transition">
+                        <button @click="currentImageIndex = 4" :class="currentImageIndex === 4 ? 'ring-4 ring-brand-yellow shadow-lg scale-105' : 'hover:shadow-md'" class="h-28 rounded-xl overflow-hidden border-2 border-gray-200 transition-all duration-300 hover:border-brand-yellow hover:scale-105">
                             <img src="Private accomodation/westville/Urban Up/IMG-20260125-WA0121.jpg" class="w-full h-full object-cover" alt="Gallery">
                         </button>
                     </div>
