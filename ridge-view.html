@@ -3,215 +3,285 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ridge View | Living Property Management</title>
+    <title>Ridge View Residence | Living Property Management</title>
+    <meta name="description" content="Ridge View Residence - Premium student housing at Westville Campus.">
     <link rel="icon" href="lpm logo.png">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstapi.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: { sans: ['Inter', 'sans-serif'] },
-                    colors: { brand: { yellow: '#fbbf24', dark: '#111827', gray: '#f3f4f6' } },
-                    animation: {
-                        'zoom-in': 'zoomIn 3s ease-out forwards',
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
                     },
-                    keyframes: {
-                        zoomIn: {
-                            '0%': { transform: 'scale(1)' },
-                            '100%': { transform: 'scale(1.1)' },
+                    colors: {
+                        brand: {
+                            yellow: '#fbbf24', // Main brand color
+                            dark: '#111827',
+                            gray: '#f3f4f6',
+                            purple: '#a855f7' // Added for the 'Apply' button style if you want to match the image closely, or we stick to yellow
                         }
                     }
                 }
             }
         }
     </script>
-    <style>[x-cloak] { display: none !important; } .glass { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); } .image-zoom { animation: zoomIn 3s ease-out; }</style>
+    
+    <style>
+        [x-cloak] { display: none !important; }
+        .glass {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        /* Hide scrollbar for gallery thumbnails */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
 </head>
-<body class="bg-gray-50 text-gray-800 antialiased" x-data="{ currentImageIndex: 0, images: ['Private accomodation/westville/Rigde view/IMG-20260125-WA0000.jpg', 'Private accomodation/westville/Rigde view/IMG-20260125-WA0001.jpg', 'Private accomodation/westville/Rigde view/IMG-20260125-WA0002.jpg', 'Private accomodation/westville/Rigde view/IMG-20260125-WA0003.jpg', 'Private accomodation/westville/Rigde view/IMG-20260125-WA0004.jpg'], get mainImageSrc() { return this.images[this.currentImageIndex] || this.images[0]; } }">
+<body class="bg-gray-50 text-gray-800 antialiased" x-data="galleryStore">
+
     <nav class="fixed w-full z-50 transition-all duration-300 glass shadow-sm border-b border-gray-100">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <div class="container mx-auto px-4 md:px-6 py-3 flex justify-between items-center">
             <a href="index.html" class="flex items-center gap-3 group">
-                <img src="lpm logo.png" alt="LPM Logo" class="w-12 h-12 rounded-full shadow-lg transform group-hover:rotate-3 transition duration-300 object-contain bg-white p-2">
+                <img src="lpm logo.png" alt="Living Property Management Logo" class="w-10 h-10 md:w-12 md:h-12 rounded-full shadow-lg object-contain bg-white p-2">
                 <div class="flex flex-col">
-                    <span class="font-extrabold text-lg tracking-tight leading-none text-brand-dark">LIVING</span>
-                    <span class="font-semibold text-xs tracking-widest text-gray-500">PROPERTY MANAGEMENT</span>
+                    <span class="font-extrabold text-base md:text-lg tracking-tight leading-none text-brand-dark">LIVING</span>
+                    <span class="font-semibold text-[10px] md:text-xs tracking-widest text-gray-500">PROPERTY MANAGEMENT</span>
                 </div>
             </a>
+
             <div class="hidden md:flex items-center space-x-8 font-medium text-sm">
                 <a href="index.html#home" class="hover:text-brand-yellow transition">Home</a>
+                <a href="index.html#about" class="hover:text-brand-yellow transition">About Us</a>
                 <a href="index.html#properties" class="hover:text-brand-yellow transition">Residences</a>
-                <a href="https://wa.me/27607296762" target="_blank" class="bg-brand-dark text-white px-6 py-2.5 rounded-full font-semibold hover:bg-brand-yellow hover:text-brand-dark transition-all transform hover:scale-105 shadow-lg flex items-center gap-2">
-                    <i class="fab fa-whatsapp"></i> Book Now
-                </a>
+                <a href="index.html#contact" class="hover:text-brand-yellow transition">Contact</a>
             </div>
+
+            <button class="md:hidden text-2xl text-brand-dark focus:outline-none">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
     </nav>
 
-    <div class="pt-24 pb-12">
+    <div class="relative pt-20 md:pt-24 group">
+        <div class="relative w-full h-[50vh] md:h-[65vh] bg-gray-200 overflow-hidden">
+            <template x-for="(image, index) in images" :key="index">
+                <div x-show="currentImageIndex === index" 
+                     class="absolute inset-0 transition-opacity duration-500 ease-in-out"
+                     x-transition:enter="opacity-0"
+                     x-transition:enter-end="opacity-100"
+                     x-transition:leave="opacity-100"
+                     x-transition:leave-end="opacity-0">
+                    <img :src="image" class="w-full h-full object-cover" alt="Property Image">
+                </div>
+            </template>
+
+            <button @click="prev()" class="absolute left-4 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/60 text-white p-4 rounded-full backdrop-blur-sm transition opacity-0 group-hover:opacity-100 focus:opacity-100">
+                <i class="fas fa-chevron-left text-xl"></i>
+            </button>
+            <button @click="next()" class="absolute right-4 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/60 text-white p-4 rounded-full backdrop-blur-sm transition opacity-0 group-hover:opacity-100 focus:opacity-100">
+                <i class="fas fa-chevron-right text-xl"></i>
+            </button>
+
+            <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex space-x-2">
+                <template x-for="(image, index) in images" :key="index">
+                    <button @click="currentImageIndex = index" 
+                            :class="currentImageIndex === index ? 'bg-white scale-110' : 'bg-white/50 hover:bg-white/80'"
+                            class="w-2.5 h-2.5 rounded-full transition-all duration-300 shadow-sm"></button>
+                </template>
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="bg-brand-dark text-white py-6 border-b border-gray-800">
         <div class="container mx-auto px-6">
-            <a href="index.html#properties" class="text-brand-yellow hover:text-yellow-400 font-semibold mb-6 inline-flex items-center gap-2">
-                <i class="fas fa-arrow-left"></i> Back to Residences
-            </a>
-
-            <div class="mb-12">
-                <h1 class="text-4xl md:text-5xl font-extrabold text-brand-dark mb-4">Ridge View</h1>
-                <div class="flex flex-wrap gap-4 text-gray-600">
-                    <span class="flex items-center gap-2"><i class="fas fa-map-marker-alt text-brand-yellow"></i> Westville Campus</span>
-                    <span class="flex items-center gap-2"><i class="fas fa-user text-brand-yellow"></i> Manager: Sanele</span>
-                </div>
-            </div>
-
-            <div class="grid lg:grid-cols-3 gap-8 mb-16">
-                <div class="lg:col-span-2">
-                    <div class="relative h-96 mb-6 rounded-2xl overflow-hidden shadow-xl">
-                        <img id="mainImage" :src="mainImageSrc" :key="currentImageIndex" class="w-full h-full object-cover animate-zoom-in" alt="Ridge View">
-                        <div class="absolute top-4 right-4 bg-brand-yellow text-brand-dark px-4 py-2 rounded-lg font-bold">
-                            <span x-text="currentImageIndex + 1"></span> / 11
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
-                        <button @click="currentImageIndex = 0" :class="currentImageIndex === 0 ? 'ring-4 ring-brand-yellow shadow-lg scale-105' : 'hover:shadow-md'" class="h-28 rounded-xl overflow-hidden border-2 border-gray-200 transition-all duration-300 hover:border-brand-yellow hover:scale-105">
-                            <img src="Private accomodation/westville/Rigde view/IMG-20260125-WA0000.jpg" class="w-full h-full object-cover" alt="Gallery">
-                        </button>
-                        <button @click="currentImageIndex = 1" :class="currentImageIndex === 1 ? 'ring-4 ring-brand-yellow shadow-lg scale-105' : 'hover:shadow-md'" class="h-28 rounded-xl overflow-hidden border-2 border-gray-200 transition-all duration-300 hover:border-brand-yellow hover:scale-105">
-                            <img src="Private accomodation/westville/Rigde view/IMG-20260125-WA0001.jpg" class="w-full h-full object-cover" alt="Gallery">
-                        </button>
-                        <button @click="currentImageIndex = 2" :class="currentImageIndex === 2 ? 'ring-4 ring-brand-yellow shadow-lg scale-105' : 'hover:shadow-md'" class="h-28 rounded-xl overflow-hidden border-2 border-gray-200 transition-all duration-300 hover:border-brand-yellow hover:scale-105">
-                            <img src="Private accomodation/westville/Rigde view/IMG-20260125-WA0002.jpg" class="w-full h-full object-cover" alt="Gallery">
-                        </button>
-                        <button @click="currentImageIndex = 3" :class="currentImageIndex === 3 ? 'ring-4 ring-brand-yellow shadow-lg scale-105' : 'hover:shadow-md'" class="h-28 rounded-xl overflow-hidden border-2 border-gray-200 transition-all duration-300 hover:border-brand-yellow hover:scale-105">
-                            <img src="Private accomodation/westville/Rigde view/IMG-20260125-WA0003.jpg" class="w-full h-full object-cover" alt="Gallery">
-                        </button>
-                        <button @click="currentImageIndex = 4" :class="currentImageIndex === 4 ? 'ring-4 ring-brand-yellow shadow-lg scale-105' : 'hover:shadow-md'" class="h-28 rounded-xl overflow-hidden border-2 border-gray-200 transition-all duration-300 hover:border-brand-yellow hover:scale-105">
-                            <img src="Private accomodation/westville/Rigde view/IMG-20260125-WA0004.jpg" class="w-full h-full object-cover" alt="Gallery">
-                        </button>
-                        <button @click="currentImageIndex = 5" :class="currentImageIndex === 5 ? 'ring-4 ring-brand-yellow shadow-lg scale-105' : 'hover:shadow-md'" class="h-28 rounded-xl overflow-hidden border-2 border-gray-200 transition-all duration-300 hover:border-brand-yellow hover:scale-105">
-                            <img src="Private accomodation/westville/Rigde view/IMG-20260125-WA0005.jpg" class="w-full h-full object-cover" alt="Gallery">
-                        </button>
-                        <button @click="currentImageIndex = 6" :class="currentImageIndex === 6 ? 'ring-4 ring-brand-yellow shadow-lg scale-105' : 'hover:shadow-md'" class="h-28 rounded-xl overflow-hidden border-2 border-gray-200 transition-all duration-300 hover:border-brand-yellow hover:scale-105">
-                            <img src="Private accomodation/westville/Rigde view/IMG-20260125-WA0006.jpg" class="w-full h-full object-cover" alt="Gallery">
-                        </button>
-                        <button @click="currentImageIndex = 7" :class="currentImageIndex === 7 ? 'ring-4 ring-brand-yellow shadow-lg scale-105' : 'hover:shadow-md'" class="h-28 rounded-xl overflow-hidden border-2 border-gray-200 transition-all duration-300 hover:border-brand-yellow hover:scale-105">
-                            <img src="Private accomodation/westville/Rigde view/IMG-20260125-WA0007.jpg" class="w-full h-full object-cover" alt="Gallery">
-                        </button>
-                        <button @click="currentImageIndex = 8" :class="currentImageIndex === 8 ? 'ring-4 ring-brand-yellow shadow-lg scale-105' : 'hover:shadow-md'" class="h-28 rounded-xl overflow-hidden border-2 border-gray-200 transition-all duration-300 hover:border-brand-yellow hover:scale-105">
-                            <img src="Private accomodation/westville/Rigde view/IMG-20260125-WA0008.jpg" class="w-full h-full object-cover" alt="Gallery">
-                        </button>
-                        <button @click="currentImageIndex = 9" :class="currentImageIndex === 9 ? 'ring-4 ring-brand-yellow shadow-lg scale-105' : 'hover:shadow-md'" class="h-28 rounded-xl overflow-hidden border-2 border-gray-200 transition-all duration-300 hover:border-brand-yellow hover:scale-105">
-                            <img src="Private accomodation/westville/Rigde view/IMG-20260125-WA0009.jpg" class="w-full h-full object-cover" alt="Gallery">
-                        </button>
-                        <button @click="currentImageIndex = 10" :class="currentImageIndex === 10 ? 'ring-4 ring-brand-yellow shadow-lg scale-105' : 'hover:shadow-md'" class="h-28 rounded-xl overflow-hidden border-2 border-gray-200 transition-all duration-300 hover:border-brand-yellow hover:scale-105">
-                            <img src="Private accomodation/westville/Rigde view/IMG-20260125-WA0010.jpg" class="w-full h-full object-cover" alt="Gallery">
-                        </button>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-2xl shadow-lg p-8 h-fit sticky top-24">
-                    <h3 class="text-2xl font-bold text-brand-dark mb-6">Quick Booking</h3>
-                    <div class="space-y-4 mb-8">
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-600">
-                                <i class="fas fa-mountain"></i>
-                            </div>
-                            <div>
-                                <p class="text-sm text-gray-500">Location</p>
-                                <p class="font-semibold text-gray-800">Elevated Viewpoint</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center text-green-600">
-                                <i class="fas fa-dumbbell"></i>
-                            </div>
-                            <div>
-                                <p class="text-sm text-gray-500">Facilities</p>
-                                <p class="font-semibold text-gray-800">Gym & Outdoor Space</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-full bg-yellow-50 flex items-center justify-center text-yellow-600">
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <div>
-                                <p class="text-sm text-gray-500">Premium</p>
-                                <p class="font-semibold text-gray-800">High Quality Living</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="border-t border-gray-200 pt-8">
-                        <a href="https://wa.me/27607296762?text=Hi,%20I'm%20interested%20in%20Ridge%20View" target="_blank" class="block w-full text-center bg-brand-dark text-white font-bold py-4 rounded-xl hover:bg-brand-yellow hover:text-brand-dark transition-all transform hover:scale-105 shadow-lg flex items-center justify-center gap-2 mb-3">
-                            <i class="fab fa-whatsapp text-lg"></i> Book via WhatsApp
-                        </a>
-                        <a href="mailto:livingpropertym@outlook.com?subject=Inquiry%20about%20Ridge%20View" class="block w-full text-center bg-white border-2 border-brand-dark text-brand-dark font-bold py-3 rounded-xl hover:bg-gray-50 transition-all">
-                            <i class="fas fa-envelope mr-2"></i> Email Inquiry
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="grid lg:grid-cols-3 gap-8 mb-16">
-                <div class="lg:col-span-2">
-                    <h2 class="text-3xl font-bold text-brand-dark mb-6">About This Accommodation</h2>
-                    <p class="text-gray-600 text-lg leading-relaxed mb-6">
-                        Ridge View offers premium student accommodation at Westville campus with elevated views and top-tier facilities. The property includes a gym and outdoor spaces for recreation and relaxation.
-                    </p>
-                    <p class="text-gray-600 text-lg leading-relaxed">
-                        Experience high-quality living with modern amenities and a vibrant community atmosphere. Ridge View is perfect for students who demand the best in comfort and lifestyle.
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div>
+                    <h1 class="text-2xl md:text-3xl font-bold uppercase tracking-wide">Ridge View Residence</h1>
+                    <p class="text-gray-400 mt-1 flex items-center gap-2">
+                        <i class="fas fa-map-marker-alt text-brand-yellow"></i>
+                        Westville Campus Private Accommodation
                     </p>
                 </div>
-
-                <div class="bg-white rounded-2xl shadow-lg p-8">
-                    <h3 class="text-xl font-bold text-brand-dark mb-6">Contact Information</h3>
-                    <div class="space-y-4">
-                        <div>
-                            <p class="text-sm text-gray-500 mb-1">Manager</p>
-                            <p class="font-semibold text-gray-800">Sanele</p>
-                        </div>
-                        <div>
-                            <p class="text-sm text-gray-500 mb-1">WhatsApp</p>
-                            <a href="https://wa.me/27607296762" target="_blank" class="text-brand-yellow hover:text-yellow-400 font-semibold">076 072 9676 2</a>
-                        </div>
-                        <div>
-                            <p class="text-sm text-gray-500 mb-1">Campus</p>
-                            <p class="font-semibold text-gray-800">Westville</p>
-                        </div>
+                <div class="flex items-center gap-6 text-sm md:text-base">
+                    <div class="flex items-center gap-2" title="Bedrooms">
+                        <i class="fas fa-bed text-gray-400"></i>
+                        <span class="font-bold">Multiple</span> <span class="hidden sm:inline">Rooms</span>
+                    </div>
+                    <div class="flex items-center gap-2" title="Bathrooms">
+                        <i class="fas fa-bath text-gray-400"></i>
+                        <span class="font-bold">Shared</span>
+                    </div>
+                    <div class="flex items-center gap-2" title="Parking">
+                        <i class="fas fa-car text-gray-400"></i>
+                        <span class="font-bold">Available</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <footer class="bg-black text-white pt-20 pb-10 border-t border-gray-800">
+    <div class="container mx-auto px-6 py-12">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            
+            <div class="lg:col-span-2 space-y-10">
+                
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">Premium Student Living with Elevated Views & Exclusive Facilities</h2>
+                    <p class="text-gray-600 mb-4 leading-relaxed">
+                        Ridge View Residence offers premium student housing in the prime Westville Campus area with elevated viewpoints and top-tier facilities. This residence is designed for students who demand the best in comfort and lifestyle, featuring exclusive gym and outdoor spaces for recreation and relaxation.
+                    </p>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        Located at the highest point of the campus, Ridge View Residence provides stunning views combined with modern amenities and high-quality living standards. The property maintains exceptional standards throughout and is managed by Sanele who ensures every resident enjoys a premium experience.
+                    </p>
+
+                    <h3 class="font-bold text-gray-900 mb-3">Features Include:</h3>
+                    <ul class="space-y-2 text-gray-600 mb-8">
+                        <li class="flex items-start gap-3">
+                            <span class="text-brand-yellow mt-1">•</span> Elevated Viewpoint Location
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-brand-yellow mt-1">•</span> Exclusive Gym Facilities
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-brand-yellow mt-1">•</span> Outdoor Recreation Space
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-brand-yellow mt-1">•</span> Premium Quality Living Standards
+                        </li>
+
+                        <li class="flex items-start gap-3">
+                            <span class="text-brand-yellow mt-1">•</span> Prime Campus Location with Best Views
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="lg:col-span-1">
+                <div class="sticky top-24 space-y-6">
+                    
+                    <!-- Quick Booking Card -->
+                    <div class="bg-white rounded-2xl shadow-lg p-8">
+                        <h3 class="text-2xl font-bold text-brand-dark mb-6">Quick Booking</h3>
+                        
+                        <div class="space-y-4 mb-8">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-600">
+                                    <i class="fas fa-mountain"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500">Location</p>
+                                    <p class="font-semibold text-gray-800">Elevated Viewpoint</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center text-green-600">
+                                    <i class="fas fa-dumbbell"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500">Amenities</p>
+                                    <p class="font-semibold text-gray-800">Gym & Outdoor Space</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-yellow-50 flex items-center justify-center text-yellow-600">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500">Premium</p>
+                                    <p class="font-semibold text-gray-800">High Quality Living</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="border-t border-gray-200 pt-6">
+                            <a href="https://wa.me/27607296762?text=Hi,%20I'm%20interested%20in%20Ridge%20View%20Residence" target="_blank" class="block w-full text-center bg-brand-dark text-white font-bold py-4 rounded-xl hover:bg-brand-yellow hover:text-brand-dark transition-all transform hover:scale-105 shadow-lg flex items-center justify-center gap-2 mb-3">
+                                <i class="fab fa-whatsapp text-lg"></i> Book via WhatsApp
+                            </a>
+                            <a href="mailto:livingpropertym@outlook.com?subject=Inquiry%20about%20Ridge%20View%20Residence" class="block w-full text-center bg-white border-2 border-brand-dark text-brand-dark font-bold py-3 rounded-xl hover:bg-gray-50 transition-all">
+                                <i class="fas fa-envelope mr-2"></i> Email Inquiry
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="contact" class="bg-black text-white pt-20 pb-10 border-t border-gray-800">
         <div class="container mx-auto px-6">
             <div class="grid md:grid-cols-4 gap-12 mb-16">
-                <div>
+                <div class="col-span-1 md:col-span-1">
                     <div class="flex items-center gap-2 mb-6">
-                        <img src="lpm logo.png" alt="LPM Logo" class="w-12 h-12 rounded-full object-contain bg-white p-1.5">
+                        <img src="lpm logo.png" alt="Living Property Management Logo" class="w-12 h-12 rounded-full object-contain bg-white p-1.5">
                         <span class="font-bold text-xl">LIVING PROPERTY</span>
                     </div>
-                    <p class="text-gray-500 text-sm leading-relaxed">Premium student housing solutions since 2023.</p>
+                    <p class="text-gray-500 text-sm leading-relaxed">
+                        Student-focused accommodation management committed to providing safe, reliable, and high-quality private housing solutions since 2023.
+                    </p>
                 </div>
+
                 <div>
                     <h4 class="font-bold text-lg mb-6 text-brand-yellow">Quick Links</h4>
                     <ul class="space-y-3 text-gray-400 text-sm">
                         <li><a href="index.html#home" class="hover:text-white transition">Home</a></li>
+                        <li><a href="index.html#about" class="hover:text-white transition">About Us</a></li>
                         <li><a href="index.html#properties" class="hover:text-white transition">Residences</a></li>
                     </ul>
                 </div>
+
                 <div>
-                    <h4 class="font-bold text-lg mb-6 text-brand-yellow">Contact</h4>
+                    <h4 class="font-bold text-lg mb-6 text-brand-yellow">Contact Us</h4>
                     <ul class="space-y-3 text-gray-400 text-sm">
-                        <li><i class="fas fa-envelope text-brand-yellow mr-2"></i>livingpropertym@outlook.com</li>
-                        <li><i class="fas fa-phone text-brand-yellow mr-2"></i><a href="tel:+27673250097" class="text-brand-yellow hover:text-yellow-400 font-semibold">067 325 0097</a></li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-envelope mt-1 text-brand-yellow"></i>
+                           livingpropertym@outlook.com 
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-phone mt-1 text-brand-yellow"></i>
+                           067 325 0097
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-map-marker-alt mt-1 text-brand-yellow"></i>
+                            Durban, KwaZulu-Natal
+                        </li>
                     </ul>
                 </div>
+
+                <div>
+                    <h4 class="font-bold text-lg mb-6 text-brand-yellow">Follow Us</h4>
+                    <div class="flex gap-4">
+                        <a href="https://tiktok.com/@livingproperty.m" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-brand-yellow hover:text-brand-dark transition-all">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                        <a href="https://www.instagram.com/lpm__sa?igsh=dHl2MmprNjR5Z3dv" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-brand-yellow hover:text-brand-dark transition-all">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://web.facebook.com/profile.php?id=61586063486755" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-brand-yellow hover:text-brand-dark transition-all">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    </div>
+                </div>
             </div>
+
             <div class="border-t border-gray-900 pt-8 text-center text-gray-600 text-sm">
                 &copy; 2026 Living Property Management. All Rights Reserved.
             </div>
@@ -219,9 +289,34 @@
     </footer>
 
     <script>
-        const images = ['Private accomodation/westville/Rigde view/IMG-20260125-WA0000.jpg','Private accomodation/westville/Rigde view/IMG-20260125-WA0001.jpg','Private accomodation/westville/Rigde view/IMG-20260125-WA0002.jpg','Private accomodation/westville/Rigde view/IMG-20260125-WA0003.jpg','Private accomodation/westville/Rigde view/IMG-20260125-WA0004.jpg','Private accomodation/westville/Rigde view/IMG-20260125-WA0005.jpg','Private accomodation/westville/Rigde view/IMG-20260125-WA0006.jpg','Private accomodation/westville/Rigde view/IMG-20260125-WA0007.jpg','Private accomodation/westville/Rigde view/IMG-20260125-WA0008.jpg','Private accomodation/westville/Rigde view/IMG-20260125-WA0009.jpg','Private accomodation/westville/Rigde view/IMG-20260125-WA0010.jpg'];
-        const mainImage = document.getElementById('mainImage');
-        setInterval(() => { const idx = document.body.__x?.find(el => el.__x)?.currentImageIndex || 0; mainImage.src = images[idx]; }, 100);
+        const images = [
+            'Private accomodation/westville/Rigde view/IMG-20260125-WA0219.jpg',
+            'Private accomodation/westville/Rigde view/IMG-20260125-WA0235.jpg',
+            'Private accomodation/westville/Rigde view/IMG-20260125-WA0237.jpg',
+            'Private accomodation/westville/Rigde view/IMG-20260125-WA0238.jpg',
+            'Private accomodation/westville/Rigde view/IMG-20260125-WA0242.jpg',
+            'Private accomodation/westville/Rigde view/IMG-20260125-WA0243.jpg',
+            'Private accomodation/westville/Rigde view/IMG-20260125-WA0244.jpg',
+            'Private accomodation/westville/Rigde view/IMG-20260125-WA0245.jpg',
+            'Private accomodation/westville/Rigde view/IMG-20260125-WA0246.jpg',
+            'Private accomodation/westville/Rigde view/IMG-20260125-WA0247.jpg',
+            'Private accomodation/westville/Rigde view/IMG-20260125-WA0249.jpg'
+        ];
+
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('galleryStore', () => ({
+                images: images,
+                currentImageIndex: 0,
+                
+                next() {
+                    this.currentImageIndex = (this.currentImageIndex + 1) % this.images.length;
+                },
+                prev() {
+                    this.currentImageIndex = (this.currentImageIndex - 1 + this.images.length) % this.images.length;
+                }
+            }));
+        });
     </script>
+
 </body>
 </html>
